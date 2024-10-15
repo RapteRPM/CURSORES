@@ -1,3 +1,5 @@
+CREATE DATABASE RPM;
+
 CREATE TABLE IF NOT EXISTS Perfil(Usuario INTEGER NOT NULL PRIMARY KEY,
     TipoUsuario varchar (50),
     Nombre TEXT NOT NULL,
