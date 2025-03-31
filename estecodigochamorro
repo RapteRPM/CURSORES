@@ -1,68 +1,68 @@
 #include <iostream>
 using namespace std;
 
-// Definimos la estructura de un nodo
+
 struct Nodo {
-    int datos;      // Almacenamos el valor en el nodo
-    Nodo* izquierda;  // Puntero izquierdo
-    Nodo* derecha;    // Puntero derecho
+    int datos;      
+    Nodo* izquierda;  
+    Nodo* derecha;    
 };
 
-// Puntero a la raíz del árbol
+
 Nodo* raiz = NULL;
 
-// Función para crear un nuevo nodo
+
 Nodo* crear_nodo(int datos) {
     Nodo* nodo = new Nodo;
-    nodo->datos = datos;  // Asignamos el valor al nodo
-    nodo->izquierda = NULL;  // Inicializamos el puntero izquierdo como NULL
-    nodo->derecha = NULL;    // Inicializamos el puntero derecho como NULL
+    nodo->datos = datos;  
+    nodo->izquierda = NULL;  
+    nodo->derecha = NULL;    
     return nodo;  
 }
 
-// Función para insertar un nodo en el árbol
+
 Nodo* insertar(Nodo* raiz, int datos) {
     if (raiz == NULL) {
-        return crear_nodo(datos);  // Si el nodo es NULL, entonces vamos a creamos un nuevo nodo
+        return crear_nodo(datos);  
     } else {
         if (datos < raiz->datos) {
-            raiz->izquierda = insertar(raiz->izquierda, datos);  // Insertamos a la izquierda si el valor es menor
+            raiz->izquierda = insertar(raiz->izquierda, datos);  
         } else {
-            raiz->derecha = insertar(raiz->derecha, datos);  // Insertamos a la derecha si el valor es mayor o igual
+            raiz->derecha = insertar(raiz->derecha, datos); 
         }
         
     }
 }
 
-// Función para mostrar el árbol (recorrido en orden)
+
 void mostrar(Nodo* raiz, int cont) {
     if (raiz == NULL) {
-        cout<<"el arbol esta vacio"<<endl;  // Si el nodo es NULL, no hacemos nada
+        cout<<"el arbol esta vacio"<<endl;  
     } else {
-        mostrar(raiz->derecha, cont + 1);  // Llamada recursiva al subárbol derecho
+        mostrar(raiz->derecha, cont + 1);  
         for (int i = 0; i < cont; i++) {
-            cout << "\t";  // Imprimimos tabulaciones para la indentación
+            cout << "\t";  
         }
-        cout << raiz->datos << "\n";  // Imprimimos el valor del nodo
-        mostrar(raiz->izquierda, cont + 1);  // Llamada recursiva al subárbol izquierdo
+        cout << raiz->datos << "\n";  
+        mostrar(raiz->izquierda, cont + 1);  
     }
 }
 
 // esto es para contar el número de ramas 
 int contarRamas(Nodo* nodo) {
     if (nodo == NULL) {
-        return 0;  // Si el nodo es NULL, dejamos un mensaje
+        return 0;  
     }
-    return 1 + contarRamas(nodo->izquierda) + contarRamas(nodo->derecha);  // Contamos el nodo actual y sus ramas
+    return 1 + contarRamas(nodo->izquierda) + contarRamas(nodo->derecha);  
 }
 
-// Función para contar los niveles del árbol (profundidad máxima)
+
 int contarNiveles(Nodo* nodo) {
     if (nodo == NULL) {
         return 0;
     }
-    int izquierda = contarNiveles(nodo->izquierda);  // Contamos los niveles del subárbol izquierdo
-    int derecha = contarNiveles(nodo->derecha);  // Contamos los niveles del subárbol derecho
+    int izquierda = contarNiveles(nodo->izquierda);  
+    int derecha = contarNiveles(nodo->derecha);  
     return 1 + max(izquierda, derecha);  // El número de niveles es el máximo de los dos subárboles + 1
 }
 
@@ -76,17 +76,17 @@ int calcularPeso(Nodo* nodo) {
 
 int main() {
     int opcion;
-    bool seguir = true;  // estos sirve para tener un control en el bucle principal.
+    bool seguir = true; 
 
-    cout << "Bienvenidos al programa del árbol binario" << endl;
+    cout << "Bienvenidos al programa del arbol binario" << endl;
 
     do {
         cout << "Seleccione una opcion:" << endl;
-        cout << "[1] Insertar un número" << endl;
-        cout << "[2] Ver el árbol" << endl;
-        cout << "[3] Ver el número de ramas" << endl;
-        cout << "[4] Ver el número de hojas" << endl;
-        cout << "[5] Ver el número de niveles" << endl;
+        cout << "[1] Insertar un numero" << endl;
+        cout << "[2] Ver el arbol" << endl;
+        cout << "[3] Ver el numero de ramas" << endl;
+        cout << "[4] Ver el numero de hojas" << endl;
+        cout << "[5] Ver el numero de niveles" << endl;
         cout << "[6] Ver el peso del árbol" << endl;
         cout << "[7] Salir" << endl;
 
@@ -95,33 +95,33 @@ int main() {
         switch (opcion) {
             case 1: {
                 int valor;
-                cout << "Ingrese un número: ";
+                cout << "Ingrese un numero: ";
                 cin >> valor;  
-                raiz = insertar(raiz, valor);  // Insertamos el número en el árbol
+                raiz = insertar(raiz, valor);  
                 break;
             }
             case 2:
-                mostrar(raiz, 0);  // Mostramos el árbol, empezando desde la raíz (cont=0)
+                mostrar(raiz, 0); 
                 cout << endl;
                 break;
             case 3:
-                cout << "Número de ramas: " << contarRamas(raiz) << endl;  // Mostramos el número de ramas
+                cout << "Numero de ramas: " << contarRamas(raiz) << endl; 
                 break;
             case 4:
                 cout << "No se pudo realizar el codigo " << endl; 
                 break;
             case 5:
-                cout << "Número de niveles: " << contarNiveles(raiz) << endl;  // Mostramos el número de niveles
+                cout << "Numero de niveles: " << contarNiveles(raiz) << endl; 
                 break;
             case 6:
-                cout << "Peso del árbol: " << calcularPeso(raiz) << endl;  // Mostramos el peso del árbol
+                cout << "Peso del arbol: " << calcularPeso(raiz) << endl;  
                 break;
             case 7:
                 cout << "Saliendo del programa..." << endl;
-                seguir = false;  // Terminamos el bucle
+                seguir = false;  
                 break;
             default:
-                cout << "Opción no válida, intente nuevamente." << endl;  // Si la opción no es válida
+                cout << "Opción no valida, intente nuevamente." << endl;  
                 break;
         }
 
