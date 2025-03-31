@@ -1,0 +1,143 @@
+#include <iostream>
+using namespace std;
+
+struct Nodo {
+    int datos; // Cambié a int para unificar
+    Nodo* izquierda;
+    Nodo* derecha;
+
+    Nodo(int valor) : datos(valor), izquierda(NULL), derecha(NULL) {}
+};
+
+Nodo* raiz = NULL; // Puntero a la raíz del árbol
+
+// Función para crear un nuevo nodo
+Nodo* crear_nodo(int valor) {
+    return new Nodo(valor);
+}
+
+// Función para insertar un nuevo nodo en el árbol
+Nodo* insertar(Nodo* nodo, int valor) {
+    if (nodo == NULL) {
+        return crear_nodo(valor);
+    } else {
+        if (valor < nodo->datos) {
+            nodo->izquierda = insertar_nodo(nodo->izquierda, valor);
+        } else {
+            nodo->derecha = insertar_nodo(nodo->derecha, valor);
+        }
+        return nodo;
+    }
+}
+
+// Función para mostrar el árbol
+void mostrar(Nodo* nodo, int cont) {
+    if (nodo == NULL) {
+        return;
+    } else {
+        mostrar(nodo->derecha, cont + 1);
+        for (int i = 0; i < cont; i++) {
+            cout << "\t";
+        }
+        cout << nodo->datos << "\n";
+        mostrar(nodo->izquierda, cont + 1);
+    }
+}
+
+// Función para contar el número de ramas
+int opcion3(Nodo* nodo) {
+    if (nodo == NULL) {
+        return 0;
+    }
+    return 1 + contarRamas(nodo->izquierda) + contarRamas(nodo->derecha);
+}
+
+// Función para contar el número de hojas
+int opcion4(Nodo* nodo) {
+    if (nodo == NULL) {
+        return 0;
+    }
+    if (nodo->izquierda == NULL && nodo->derecha == NULL) {
+        return 1; // Es una hoja
+    }
+    return contarHojas(nodo->izquierda) + contarHojas(nodo->derecha);
+}
+
+// Función para contar el número de niveles
+int opcion5(Nodo* nodo) {
+    if (nodo == NULL) {
+        return 0;
+    }
+    int izquierda = contarNiveles(nodo->izquierda);
+    int derecha = contarNiveles(nodo->derecha);
+    return 1 + (izquierda > derecha ? izquierda : derecha);
+}
+
+// Función para calcular el peso del árbol (suma de todos los nodos)
+int opcion5(Nodo* nodo) {
+    if (nodo == NULL) {
+        return 0;
+    }
+    return nodo->datos + calcularPeso(nodo->izquierda) + calcularPeso(nodo->derecha);
+}
+
+
+int main() {
+    int opcion;
+    bool mseguir = true;
+
+    cout << "Bienvenidos a su programa de confianza" << endl;
+
+    do {
+        cout << "Seleccione una opcion" << endl;
+        cout << "[1] INSERTE NUMERO ENTRE 1 - 50 " << endl;
+        cout << "[2] QUIERO VER ARBOL " << endl;
+        cout << "[3] QUIERO VER # DE RAMAS " << endl;
+        cout << "[4] QUIERO VER # DE HOJAS " << endl;
+        cout << "[5] QUIERO VER # DE NIVELES " << endl;
+        cout << "[6] QUIERO VER PESO DEL ARBOL " << endl;
+        cout << "[7] SALIR" << endl;
+
+        cin >> opcion;
+
+        switch (opcion) {
+            case 1:
+                opcion1();
+                break;
+
+            case 2:
+                opcion2();
+                break;
+
+            case 3:
+                opcion3();
+                break;
+
+            case 4:
+                opcion4;
+                break;
+                
+            case 5:
+                
+                opcion5();
+                break;
+                
+            case 6:
+                
+                opcion6();
+                break;
+                
+            case 7:
+                cout<<"saliendo del mejor programa"<<endl;
+                
+            default:
+               cout<<"Opcion no valida, intente nuevamente";     
+        }
+        
+        
+        
+        
+    }while(opcion != 7);
+    
+    return 0;
+}
